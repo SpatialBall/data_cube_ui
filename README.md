@@ -5,7 +5,7 @@ CEOS 数据立方体（Data Cube）用户界面系统是一个完全基于Python
 * [**Celery + Redis**](http://www.celeryproject.org/): 异步任务处理
 * [**Data Cube**](http://datacube-core.readthedocs.io/en/stable/): 数据访问和分析接口
 * [**PostgreSQL**](https://www.postgresql.org/): 后端数据库
-* [**Apache Mod WSGI**]: 一种基于标准服务的应用程序，支撑Django应用程序运行，同时也为静态文件提供托管
+* **Apache/Mod WSGI**: 一种基于标准服务的应用程序，支撑Django应用程序运行，同时也为静态文件提供托管
 * [**Bootstrap3**](http://getbootstrap.com/): 一种简单、标准、易用的前端样式
 
 采用这些通用技术为想开发数据立方体（Data Cube）应用程序的用户提供了一个良好的启动平台。采用Celery可以执行简单的分布式任务处理，同时还能保持性能。我们的用户界面是为高水平使用数据立方体而设计的，并允许用户执行:
