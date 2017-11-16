@@ -1,24 +1,24 @@
-Data Cube UI Installation Guide
+数据立方体（Data Cube）用户界面系统安装指南
 =================
 
 This document will guide users through the process of installing and configuring our Data Cube user interface. Our interface is a full Python web server stack using Django, Celery, PostreSQL, and Boostrap3. In this guide, both python and system packages will be installed and configured and users will learn how to start asynchronous task processing systems. While this guide provides a manual installation process, we have created scripts that do a lot of the initial setup - these can be found in the section title 'Automated Setup'
 
-Contents
+目录
 =================
 
-  * [Introduction](#introduction)
-  * [Prerequisites](#prerequisites)
-  * [Automated Setup](#automated_setup)
-  * [Installation Process](#installation_process)
-  * [Configuring the Server](#configuration)
-  * [Initializing the Database](#database_initialization)
-  * [Starting Workers](#starting_workers)
-  * [System Overview](#system_overview)
-  * [Customize the UI](#customization)
-  * [Maintenance, Upgrades, and Debugging](#maintenance)
-  * [Common problems/FAQs](#faqs)
+  * [引言](#introduction)
+  * [安装准备](#prerequisites)
+  * [自动设置](#automated_setup)
+  * [安装过程](#installation_process)
+  * [配置服务端](#configuration)
+  * [初始化数据库](#database_initialization)
+  * [启动工作](#starting_workers)
+  * [系统概述](#system_overview)
+  * [定制用户界面](#customization)
+  * [维护，更新与调试](#maintenance)
+  * [常见问题/FAQs](#faqs)
 
-<a name="introduction"></a> Introduction
+<a name="introduction"></a> 引言
 =================
 
 The CEOS Data Cube UI is a full stack Python web application used to perform analysis on raster datasets using the Data Cube. Using common and widely accepted frameworks and libraries, our UI is a good tool for demonstrating the Data Cube capabilities and some possible applications and architectures. The UI's core technologies are:
@@ -37,7 +37,7 @@ Using these common technologies provides a good starting platform for users who 
 * Generate both visual (image) and data products (GeoTiff/NetCDF)
 * Provide easy access to metadata and previously run analysis cases
 
-<a name="prerequisites"></a> Prerequisites
+<a name="prerequisites"></a> 安装准备
 =================
 
 To set up and run our Data Cube UI, the following conditions must be met:
@@ -53,7 +53,7 @@ To set up and run our Data Cube UI, the following conditions must be met:
 
 If these requirements are not met, please see the associated documentation. Please take some time to get familiar with the documentation of our core technologies - most of this guide is concerning setup and configuration and is not geared towards teaching about our tools.
 
-<a name="automated_setup"></a> Automated Setup
+<a name="automated_setup"></a> 自动设置
 =================
 
 We have automated this setup process as much as we could - You will need to edit all the configurations manually, but the rest of the setup is automated. Edit the files in the `config` directory (.datacube.conf, dc_ui.conf) and the project `settings.py` to reflect the user that will be used to run the UI and the database credentials. Examples of this can be found in the later sections. After your credentials are entered and you have replaced instances of 'localuser' with your system user, run:
@@ -65,7 +65,7 @@ bash scripts/ui_setup.sh
 
 This will move the configuration files, do the migrations, and restart everything. This will also daemonize the celery workers. If you want more detail about the setup process or require some additional modifications, follow the entire process below.
 
-<a name="installation_process"></a> Installation Process
+<a name="installation_process"></a> 安装过程
 =================
 
 The installation process includes both system level packages and python packages. You will need to have the virtual environment activated for this entire guide.
@@ -135,7 +135,7 @@ and run `sudo service postfix restart`, then `echo "This is the body of the emai
 
 With all of the packages above installed, you can now move on to the configuration step.
 
-<a name="configuration"></a> Configuring the Server
+<a name="configuration"></a> 配置服务端
 =================
 
 The configuration of our application involves ensuring that all usernames and passwords are accurately listed in required configuration files, moving those configuration files to the correct locations, and enabling the entire system.
@@ -275,7 +275,7 @@ sudo cp config/.pgpass ~/.pgpass
 sudo chmod 600 ~/.pgpass
 ```
 
-<a name="database_initialization"></a> Initializing the Database
+<a name="database_initialization"></a> 初始化数据库
 =================
 
 Now that all of the requirements have been installed and all of the configuration details have been set, it is time to initialize the database.
@@ -306,7 +306,7 @@ Now that we have everything initialized, we can view the site and see what we've
 Visit the administration panel by going to either {ip}/admin or localhost/admin. You'll see a page that shows all of the various models and default values.
 
 
-<a name="starting_workers"></a> Starting Workers
+<a name="starting_workers"></a> 启动工作
 =================
 
 We use Celery workers in our application to handle the asynchronous task processing. We use tmux to handle multiple detached windows to run things in the background. In the future, we will be moving to daemon processes, but for now we like to be able to see the debugging output. For the current implementation, we use multiple worker instances - one for general task processing and one for the Data Cube manager functionality. The Data Cube manager worker has a few specific parameters that make some of the database creation and deletion operations work a little more smoothly.
@@ -363,7 +363,7 @@ This is done in the initial setup script.
 You can alias the /etc/init.d/* script as whatever you like - you can start, stop, kill, restart, etc. the workers using this script.
 
 
-<a name="system_overview"></a> Task System Overview
+<a name="system_overview"></a> 系统概况
 =================
 
 The worker system can seem complex at first, but the basic workflow is shown below:
@@ -378,7 +378,7 @@ The worker system can seem complex at first, but the basic workflow is shown bel
 * The master process creates a Result and Metadata model based on what was just created and returns the details to the browser
 
 
-<a name="customization"></a> Customize the UI
+<a name="customization"></a> 定制用户界面
 =================
 
 To finish the configuration, we will need to create an area and product that you have ingested. For this section, we have to have a few assumptions:
@@ -417,7 +417,7 @@ Navigate back to the main admin page and select dc_algorithm->Applications. Choo
 Go back to the main site and navigate back to the Custom Mosaic Tool. You will see that your area is the only one in the list - select this area to load the tool. Make sure your workers are running and submit a task over the default time over some area and watch it complete. The web page should load an image result.
 
 
-<a name="maintenance"></a> Maintenance, Upgrades, and Debugging
+<a name="maintenance"></a> 维护，更新与调试
 =================
 
 Upgrades can be pulled directly from our GitHub releases using Git. There are a few steps that will need to be taken to complete an upgrade from an earlier release version:
@@ -439,7 +439,7 @@ Occasionally there may be some issues that need to be debugged. Some of the comm
 
 If you are having trouble diagnosing issues with the UI, feel free to contact us with a description of the issue and all relevant logs or screenshots. To ensure that we are able to assist you quickly and efficiently, please verify that your server is running with DEBUG = True and your Celery worker process is running in the terminal with loglevel info.
 
-<a name="faqs"></a> Common problems/FAQs
+<a name="faqs"></a> 常见问题/FAQs
 ========  
 ----  
 
