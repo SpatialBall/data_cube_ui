@@ -9,7 +9,7 @@ CEOS 数据立方体（Data Cube）用户界面系统是一个完全基于Python
 * [**Bootstrap3**](http://getbootstrap.com/): 一种简单、标准、易用的前端样式
 
 采用这些通用技术为想开发数据立方体（Data Cube）应用程序的用户提供了一个良好的启动平台。采用Celery可以执行简单的分布式任务处理，同时还能保持性能。我们的用户界面是为高水平使用数据立方体而设计的，并允许用户执行:
-* Access various datasets that we have ingested访问数据立方体中的各种数据集
+* 访问数据立方体中的各种数据集
 * 运行用户选择区域和时间范围的自定义分析案例
 * 生成可视(图像)和数据产品 (GeoTiff/NetCDF)
 * 提供易于访问的元数据和运行的历史分析案例
